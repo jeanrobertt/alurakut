@@ -53,34 +53,48 @@ Para instalar o app localmente, você precisa seguir os passos abaixo:
 
 1. Abra um terminal, clone o repositório e entre na pasta alurakut:
 
-```git clone https://github.com/jeanrobertt/alurakut.git && cd alurakut```
+```
+git clone https://github.com/jeanrobertt/alurakut.git && cd alurakut
+```
 
 2. Navegue até a pasta backend.
 
-```cd backend ```
+```sh
+cd backend
+```
 
 3. Instale as dependências com o comando 
 
-```npm install```
+```
+npm install
+```
 
 4. Inicie o servidor com o comando: 
-```npm run dev```
+```
+npm run dev
+```
 
 Caso ocorra algum erro, utilize `CTRL+C` para parar e `npm run dev` novamente.
 
 5. Abra outro terminal e navegue até a pasta frontend.
 
-```cd alurakut\frontend ```
+```sh
+cd alurakut\frontend
+```
 
 6. Instale as dependências com o comando:
 
-```npm install```
+```
+npm install
+```
 
 Isso pode demorar alguns minutos.
 
 7. Inicie o app com o comando 
 
-```npm run start```
+```
+npm run start
+```
 
 8. Se tudo funcionar corretamente, você receberá uma mensagem de que o servidor foi compilado com sucesso e poderá acessar o site pela URL indicada no terminal, provavelmente em <http://localhost:4200/>.
 
