@@ -1,0 +1,14 @@
+<form class="form" (ngSubmit)="sendMessage()">
+    <div>
+        <textarea
+            class="form-control"
+            [(ngModel)]="text"
+            name="text"
+            type="text"
+            required
+            placeholder="O que deseja enviar?"
+            aria-label="O que deseja enviar?"
+        ></textarea>
+    </div>
+    <button class="btn btn-outline-primary" type="submit">Enviar Messagem</button>
+</form>

@@ -1,0 +1,33 @@
+<div *ngIf="data?.type === 'user'">
+    <nav>
+      <a href="/"><img [src]="baseURL + '/icons/user.svg'"
+             alt="user icon" /> Perfil </a>
+      <a href="/"><img [src]="baseURL + '/icons/book.svg'"
+             alt="book icon" /> Recados </a>
+      <a href="/"><img [src]="baseURL + '/icons/camera.svg'"
+             alt="camera icon" /> Fotos </a>
+      <a href="/"><img [src]="baseURL + '/icons/sun.svg'"
+             alt="sun icon" /> Depoimentos </a>
+    </nav>
+    <hr />
+    <nav>
+      <a href="/"><img [src]="baseURL + '/icons/plus.svg'"
+             alt="GitHub Trends icon" /> GitHub Trends </a>
+      <a routerLink="/logout"><img [src]="baseURL + '/icons/logout.svg'"
+             alt="logout icon" /> Sair </a>
+    </nav>
+  </div>
+  <div *ngIf="data?.type === 'community'">
+       <p>({{community?.users!.length}} membros)</p>
+       <hr>
+       <a *ngIf="!isUserInCommunity()" (click)="joinCommunity()">
+              <img [src]="baseURL + '/icons/plus.svg'"
+             alt="GitHub Trends icon" />
+             Participar da comunidade
+       </a>
+       <a *ngIf="isUserInCommunity()" (click)="leaveCommunity()">
+              <img src="assets/minus.svg"
+             alt="GitHub Trends icon" />
+             Sair da comunidade
+       </a>
+  </div>

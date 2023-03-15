@@ -1,0 +1,24 @@
+<app-alurakut-menu />
+<app-main-grid>
+    <aside class="profileArea">
+        <app-profile-sidebar [data]="{type: 'user', data: userdata$}"/>
+    </aside>
+    <div class="welcomeArea">
+        <app-grid-box>
+            <h1 class="title">Bem Vindo(a) {{ name$ }}</h1>
+            <app-orkut-icon-set />
+        </app-grid-box>
+        <app-grid-box>
+            <h2 class="subTitle">Crie sua própria comunidade!</h2>
+            <app-create-community />
+        </app-grid-box>
+        <app-grid-box>
+            <h2 class="subTitle">Recados</h2>
+            <app-messages />
+        </app-grid-box>
+    </div>
+    <div class="profileRelationsArea">
+        <app-profile-relations-box [data]="userData" />
+        <app-profile-relations-box [data]="communitiesData"/>
+    </div>
+</app-main-grid>

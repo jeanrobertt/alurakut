@@ -1,0 +1,32 @@
+<header class="header fixed-nav">
+  <div class="container-menu">
+    <img [src]="baseURL + '/logo.svg'"
+         alt=""
+         class="alurakutMenuLogo" />
+    <nav style="flex: 1"
+         class="nav-pages">
+      <a *ngFor="let menuItem of menuItems; let i = index"
+         [routerLink]="menuItem.name.toLowerCase() !== 'amigos' ? menuItem.slug.toLowerCase() : null"
+         [ngClass]="{'disabled-link': menuItem.name.toLowerCase() === 'amigos'}"
+         [attr.key]="'key__'+ i + '_'+ menuItem.name.toLowerCase()"> {{ menuItem.name }} </a>
+    </nav>
+    <nav>
+      <input class="disabled-link" disabled placeholder="Pesquisar no Orkut" />
+
+      <a (click)="logout()"
+         routerLink="/login">Sair</a>
+    </nav>
+    <button title="menu-icon"
+            type="button"
+            (click)="isMenuOpen = !isMenuOpen">
+      <img *ngIf="isMenuOpen"
+           [src]="baseURL + '/icons/menu-open.svg?v=' + v"
+           alt="" />
+      <img *ngIf="!isMenuOpen"
+           [src]="baseURL + '/icons/menu-closed.svg?v=' + v"
+           alt="" />
+    </button>
+  </div>
+  <app-alurakut-profile-sidebar class="alurakutMenuProfileSidebar"
+                                [ngClass]="isMenuOpen ? 'menuOpen' : 'menuClosed'" />
+</header>

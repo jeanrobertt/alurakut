@@ -1,0 +1,55 @@
+/* You can add global styles to this file, and also import other style files */
+@import './assets/reset.css';
+/* @import './assets/normalize.css'; */
+@import './assets/AlurakutStyles.css';
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+:root {
+    --backgroundPrimary: #d9e6f6;
+    --backgroundSecondary: #f1f9fe;
+    --backgroundTertiary: #ffffff;
+    --backgroundQuarternary: #bbcde8;
+    --colorPrimary: #2e7bb4;
+    --colorSecondary: #388bb0;
+    --colorTertiary: #2f4a71;
+    --colorQuarternary: #d81d99;
+    --textPrimaryColor: #333333;
+    --textSecondaryColor: #ffffff;
+    --textTertiaryColor: #5a5a5a;
+    --textQuarternaryColor: #c5c6ca;
+    --commonRadius: 8px;
+    --gap: 12px;
+    --gutter: 16px;
+    --size: 75px;
+    --border: calc(var(--size) / 15);
+}
+
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+
+body {
+	background: linear-gradient(#adc9eb 25%, #5c93d6 75%, #2960a3 100%);
+}
+
+#app {
+	font-family: Rubik, sans-serif  !important;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	color: #2c3e50;
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+
+.pagination * {
+    font-size: 12px !important;
+}

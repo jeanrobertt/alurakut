@@ -1,0 +1,49 @@
+<div style="display: flex; height: 100vh">
+  <main class="loginMain">
+    <div class="loginScreen">
+      <section class="logoArea">
+        <img src="https://alurakut.vercel.app/logo.svg" alt="alurakut Logo" />
+        <p>
+          <strong>Conecte-se</strong> aos seus amigos e familiares usando
+          recados e mensagens instantâneas
+        </p>
+        <p>
+          <strong>Conheça</strong> novas pessoas através de amigos de seus
+          amigos e comunidades
+        </p>
+        <p>
+          <strong>Compartilhe</strong> seus vídeos, fotos e paixões em um só
+          lugar
+        </p>
+      </section>
+      <section class="formArea">
+        <form class="box" (ngSubmit)="login($event)">
+          <p>Acesse agora mesmo com seu usuário do <strong>GitHub</strong>!</p>
+          <input
+            placeholder="Usuário"
+            [(ngModel)]="githubUser"
+            name="githubUser"
+          />
+          <b> {{ githubUser.length === 0 || userError ? msg : "" }} </b>
+          <button type="submit">Login</button>
+        </form>
+        <footer class="box">
+          <p>
+            Ainda não é membro? <br />
+            <a routerLink="/login">
+              <strong> ENTRAR JÁ </strong>
+            </a>
+          </p>
+        </footer>
+      </section>
+      <footer class="footerArea">
+        <p>
+          © 2021 alura.com.br - <a routerLink="/">Sobre o Orkut.br</a> -
+          <a routerLink="/">Centro de segurança</a> -
+          <a routerLink="/">Privacidade</a> - <a routerLink="/">Termos</a> -
+          <a routerLink="/">Contato</a>
+        </p>
+      </footer>
+    </div>
+  </main>
+</div>

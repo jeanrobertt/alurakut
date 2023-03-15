@@ -1,0 +1,24 @@
+<app-alurakut-menu />
+<app-main-grid>
+    <aside class="profileArea">
+        <app-profile-sidebar [data]="{ type: 'user', data: userdata$}"/>
+    </aside>
+    <div class="welcomeArea">
+        <app-grid-box>
+            <h1 class="title">Perfil de {{ name$ }}</h1>
+            <app-orkut-icon-set />
+        </app-grid-box>
+        <app-grid-box>
+            <h2 class="subTitle">O que você deseja fazer?</h2>
+            <app-send-message />
+        </app-grid-box>
+        <app-grid-box>
+            <h2 class="subTitle">Recados</h2>
+            <app-messages />
+        </app-grid-box>
+    </div>
+    <div class="profileRelationsArea">
+        <app-profile-relations-box [data]="followersProfile" />
+        <app-profile-relations-box [data]="communitiesProfile" />
+    </div>
+</app-main-grid>

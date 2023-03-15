@@ -1,0 +1,26 @@
+p {
+	font-weight: 400;
+	font-size: 12px;
+	color: #999;
+	margin: 10px 0
+}
+
+a {
+	font-size: 12px;
+	color: #2e7bb4;
+	margin-bottom: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	text-decoration: none;
+}
+
+a img {
+	width: 16px;
+	height: 16px;
+	margin-right: 5px;
+}
+
+div p + hr {
+	margin: 5px 0 !important;
+}

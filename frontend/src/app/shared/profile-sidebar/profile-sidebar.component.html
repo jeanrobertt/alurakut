@@ -1,0 +1,11 @@
+<app-grid-box>
+    <img [src]="type==='user' ? userData?.avatar_url : communityData?.imageUrl" alt="Foto de perfil">
+    <p>
+        <a [href]="type==='user' ? userData?.avatar_url : communityData?.imageUrl" class="boxLink">
+            {{type==='user' ? userData?.name : communityData?.title}}
+        </a>
+    </p>
+    <hr>
+    <app-alurakut-profile-sidebar-menu-default *ngIf="type==='user'" [data]="{type:'user', data: userData!}"/>
+    <app-alurakut-profile-sidebar-menu-default *ngIf="type==='community'" [data]="{type:'community', data: communityData!}"/>
+</app-grid-box>

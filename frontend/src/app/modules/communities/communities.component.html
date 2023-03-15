@@ -1,0 +1,18 @@
+<app-alurakut-menu></app-alurakut-menu>
+<app-main-grid [class_]="!communityPage? 'communities' : ''">
+	<aside class="profileArea">
+		<app-profile-sidebar *ngIf="communityPage" [data]="{type: 'community' ,data: community$!}"/>
+		<app-profile-sidebar *ngIf="!communityPage" [data]="{type:'user', data: userdata!}" />
+	</aside>
+	<div class="welcomeArea">
+		<app-grid-box *ngIf="!communityPage">
+			<app-main-communities />
+		</app-grid-box>
+		<app-grid-box *ngIf="communityPage">
+			<app-main-community [community$]="community$" />
+		</app-grid-box>
+	</div>
+	<div *ngIf="communityPage" class="profileRelationsArea">
+        <app-profile-relations-box [data]="communityData"/>
+    </div>
+</app-main-grid>

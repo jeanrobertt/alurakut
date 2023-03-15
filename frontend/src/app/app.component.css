@@ -1,0 +1,9 @@
+.profileArea {
+    grid-area: profileArea;
+}
+.welcomeArea {
+    grid-area: welcomeArea;
+}
+.profileRelationsArea {
+    grid-area: profileRelationsArea;
+}

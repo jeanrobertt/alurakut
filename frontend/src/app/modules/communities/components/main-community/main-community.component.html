@@ -1,0 +1,25 @@
+<h2>{{ community$?.title }}</h2>
+<nav
+	id="breadcrumb"
+	[style]="'--bs-breadcrumb-divider: \'>\';'"
+	aria-label="breadcrumb"
+>
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+		<li class="breadcrumb-item active" aria-current="page">Comunidade</li>
+	</ol>
+</nav>
+<hr />
+<ul class="media-list list-group">
+	<li
+		class="list-group-item"
+		[ngClass]="index % 2 == 0 ? 'listItemPrimary' : 'listItemScondary'"
+		*ngFor="let item of community; let index = index"
+		[attr.key]="community$?._id + '__' + index"
+	>
+		<div class="d-flex align-items-start" style="margin-top: 10px">
+			<p>{{ item.key }}</p>
+			<p>{{ item.value }}</p>
+		</div>
+	</li>
+</ul>

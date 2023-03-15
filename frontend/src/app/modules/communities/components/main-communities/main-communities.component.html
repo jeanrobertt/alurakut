@@ -1,0 +1,52 @@
+<h2>Minhas comunidades</h2>
+<nav
+	id="breadcrumb"
+	[style]="'--bs-breadcrumb-divider: \'>\';'"
+	aria-label="breadcrumb"
+>
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+		<li class="breadcrumb-item active" aria-current="page">
+			Minhas comunidades
+		</li>
+	</ol>
+</nav>
+<hr />
+<ul class="media-list list-group">
+	<li
+		class="list-group-item"
+		*ngFor="let community of communities$; let index = index"
+		[ngClass]="index % 2 == 0 ? 'listItemPrimary' : 'listItemScondary'"
+		[attr.key]="community?._id"
+	>
+		<div class="d-flex align-items-start" style="margin-top: 10px">
+			<div class="media">
+				<a (click)="navigateToCommunity(community)">
+					<img
+						class="rounded-circle me-3"
+						[src]="community?.imageUrl"
+						alt="Community profile picture"
+					/>
+				</a>
+			</div>
+			<div class="d-flex flex-column flex-grow-1 align-self-center">
+				<a (click)="navigateToCommunity(community)">
+					<h5>{{ community?.title }}</h5>
+				</a>
+				<p>{{ communityLength(community) }}</p>
+			</div>
+		</div>
+	</li>
+</ul>
+<div class="d-flex justify-content-end">
+	<pagination
+		id="pagination"
+		[totalItems]="communities$!.length"
+		(pageChanged)="pageChanged($event)"
+		[boundaryLinks]="true"
+		previousText="&lsaquo;"
+		nextText="&rsaquo;"
+		firstText="&laquo;"
+		lastText="&raquo;"
+	></pagination>
+</div>

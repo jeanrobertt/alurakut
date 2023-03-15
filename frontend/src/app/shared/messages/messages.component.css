@@ -1,0 +1,36 @@
+ul {
+    margin-top: 10px;
+}
+
+p {
+    margin-bottom: 0;
+}
+
+a {
+    color: #495057;
+}
+
+img {
+    width: 42px;
+    height: 42px;
+}
+
+.media {
+    margin-right: 5px;
+}
+
+.msg {
+    width: 475px
+}
+
+small {
+    font-size: small;
+}
+
+ul li.listItemPrimary {
+    background: #d9e6f6;
+}
+
+ul li.listItemScondary {
+    background: #f1f9fe;
+}

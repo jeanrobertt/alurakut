@@ -1,0 +1,28 @@
+<ul class="media-list list-group">
+    <li class="list-group-item"
+        *ngFor="let message of messages; let index = index"
+        [ngClass]="index % 2 == 0 ? 'listItemPrimary' : 'listItemScondary'"
+        [attr.key]="message?._id">
+        <div class="d-flex align-items-start" style="margin-top: 5px;">
+            <div class="media">
+                <a [routerLink]="'/u/' + message?.sender">
+                    <img class="rounded-circle me-3"
+                         [src]="'https://github.com/' + message?.sender + '.png'"
+                         [alt]="'User\'s profile picture' + message?.sender">
+                </a>
+            </div>
+            <div class="d-flex flex-column flex-grow-1 msg">
+                <div class="d-flex justify-content-between">
+                    <a [routerLink]="'/u/'+ message?.sender">
+                        <h6 class="fw-bold">{{message?.sender}}</h6>
+                    </a>
+                    <small>{{ message?.updatedAt }}</small>
+                </div>
+                <div class="mt-2">
+                    <p class="lh-base">{{ message?.text }}</p>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>
+  

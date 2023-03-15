@@ -1,0 +1,11 @@
+<div>
+  <img [src]="userdata$.avatar_url"
+        alt="Foto de perfil do usuário" />
+  <hr />
+  <p>
+    <a [routerLink]="'/u/' + userdata$.login"
+        class="boxLink"> {{ userdata$.name }} </a>
+  </p>
+  <hr />
+  <app-alurakut-profile-sidebar-menu-default />
+</div>

@@ -1,0 +1,78 @@
+ul {
+    margin-top: 10px;
+}
+
+ul li.listItemPrimary {
+    background: #d9e6f6;
+}
+
+ul li.listItemScondary {
+    background: #f1f9fe;
+}
+
+p {
+	margin-bottom: 0;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: #5a5a5a;
+    width: 50%;
+}
+
+li p:first-child {
+    text-align: end;
+    margin-right: 15px;
+}
+
+h2 {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 33px;
+    color: #333333;
+}
+
+#breadcrumb {
+    margin-top: 5px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+}
+
+#breadcrumb li{
+    color: #2e7bb4;
+    text-decoration: none;
+}
+
+#breadcrumb li:last-child {
+    color: #333333;
+}
+
+a {
+	color: #495057;
+}
+
+img {
+	width: 60px;
+	height: 60px;
+}
+
+h5 {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    color: #2e7bb4
+}
+
+
+.media {
+	margin-right: 5px;
+}
+
+/*Set margin bottom of ul inside .welcomeArea*/
+ul {
+    margin-bottom: 5px !important;
+}

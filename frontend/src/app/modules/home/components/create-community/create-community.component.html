@@ -1,0 +1,22 @@
+<form (ngSubmit)="createCommunity($event)"
+      class="form">
+    <div>
+        <input name="title"
+               type="text"
+               class="form-control"
+               placeholder="Qual o nome da sua comunidade?"
+               aria-label="Qual o nome da sua comunidade?"
+               [(ngModel)]="title"
+               required>
+    </div>
+    <div>
+        <input name="imageUrl"
+               type="text"
+               class="form-control"
+               placeholder="URL da imagem de capa"
+               aria-label="URL da imagem de capa"
+               [(ngModel)]="imageUrl"
+               required>
+    </div>
+    <button class="btn btn-outline-primary" type="submit">Criar Comunidade</button>
+</form>
