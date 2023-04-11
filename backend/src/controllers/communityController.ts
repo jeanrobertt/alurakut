@@ -1,129 +1,162 @@
 import { Request, Response } from "express";
 import { ICommunity } from "../types/community";
 import Community from "../models/community";
-
-const getCommunities = async (req: Request, res: Response): Promise<void> => {
-	try {
-		let communities: ICommunity[];
-		let community;
-		console.log(new Date().toLocaleString() , " - Req received - getCommunities");
-		if (req.body.user) {
-			communities = await Community.find({ users: req.body.user });
-			res.status(200).json({ communities });
-		} else if(req.body.id) {
-			community = await Community.findById({ _id: req.body.id });
-			res.status(200).json({ community });
-		} else {
-			communities = await Community.find();
-			res.status(200).json({ communities });
+import { logger } from "../config/logger.config";
+class CommunityController {
+	async getCommunities(req: Request, res: Response): Promise<void> {
+		try {
+			let communities: ICommunity[];
+			let community;
+			logger.info("Req received - getCommunities");
+			if (req.query.user) {
+				communities = await Community.find({ users: req.query.user });
+				res.status(200).json({ communities });
+				logger.info("Response sent with status 200");
+			} else if (req.query.id) {
+				community = await Community.findById({ _id: req.query.id });
+				res.status(200).json({ community });
+				logger.info("Response sent with status 200");
+			} else {
+				communities = await Community.find();
+				res.status(200).json({ communities });
+				logger.info("Response sent with status 200");
+			}
+		} catch (error) {
+			res.status(500).send({ message: "Internal Server Error" });
+			logger.error(
+				"Response sent with status 500 - Internal Server Error"
+			);
+			logger.error(error);
 		}
-	} catch (error) {
-		res.status(500).send({ message: "Internal Server Error" })
-
 	}
-};
 
-const addCommunity = async (req: Request, res: Response): Promise<void> => {
-	try {
-		const body = req.body as Pick<
-			ICommunity,
-			"title" | "imageUrl" | "creatorSlug"
-		>;
+	async createCommunity(req: Request, res: Response): Promise<void> {
+		try {
+			const body = req.body as Pick<
+				ICommunity,
+				"title" | "imageUrl" | "creatorSlug"
+			>;
 
-		const community: ICommunity = new Community({
-			title: body.title,
-			imageUrl: body.imageUrl,
-			creatorSlug: body.creatorSlug,
-			users: [body.creatorSlug]
-		});
+			const community: ICommunity = new Community({
+				title: body.title,
+				imageUrl: body.imageUrl,
+				creatorSlug: body.creatorSlug,
+				users: [body.creatorSlug],
+			});
 
-		const newCommunity: ICommunity = await community.save();
-		console.log(new Date().toLocaleString() , " - Req received - addCommunity");
-		res.status(201).json({
-			message: "Community created",
-			community: newCommunity,
-		});
-	} catch (error) {
-		res.status(500).send({ message: "Internal Server Error" })
+			const newCommunity: ICommunity = await community.save();
+			logger.info("Req received - createCommunity");
+			res.status(201).json({
+				message: "Community created",
+				community: newCommunity,
+			});
+			logger.info("Response sent with status 201");
+		} catch (error) {
+			res.status(500).send({ message: "Internal Server Error" });
+			logger.error(
+				"Response sent with status 500 - Internal Server Error"
+			);
+			logger.error(error);
+		}
 	}
-};
 
-const updateCommunity = async (req: Request, res: Response): Promise<void> => {
-    try {
-        const {
-            query: { id },
-            body
-        } = req
+	async updateCommunity(req: Request, res: Response): Promise<void> {
+		try {
+			const {
+				query: { id },
+				body,
+			} = req;
 
-        const updatedCommunity: ICommunity | null = await Community.findByIdAndUpdate(
-            { _id: id },
-            body,
-			{returnDocument: "after"}
-        )
-		console.log(new Date().toLocaleString() , " - Req received - updateCommunity");
-		res.status(200).json({
-			message: "Community updated",
-			community: updatedCommunity,
-		});
-    } catch (error) {
-		res.status(500).send({ message: "Internal Server Error" })
-    }
+			const updatedCommunity: ICommunity | null =
+				await Community.findByIdAndUpdate({ _id: id }, body, {
+					returnDocument: "after",
+				});
+			logger.info("Req received - updateCommunity");
+			res.status(200).json({
+				message: "Community updated",
+				community: updatedCommunity,
+			});
+			logger.info("Response sent with status 200");
+		} catch (error) {
+			res.status(500).send({ message: "Internal Server Error" });
+			logger.error(
+				"Response sent with status 500 - Internal Server Error"
+			);
+			logger.error(error);
+		}
+	}
+
+	async deleteCommunity(req: Request, res: Response): Promise<void> {
+		try {
+			const deletedCommunity: ICommunity | null =
+				await Community.findByIdAndDelete(req.query.id);
+			logger.info("Req received - deleteCommunities");
+			res.status(200).json({
+				message: "Community deleted",
+				community: deletedCommunity,
+			});
+			logger.info("Response sent with status 200");
+		} catch (error) {
+			res.status(500).send({ message: "Internal Server Error" });
+			logger.error(
+				"Response sent with status 500 - Internal Server Error"
+			);
+			logger.error(error);
+		}
+	}
+
+	async joinCommunity(req: Request, res: Response): Promise<void> {
+		try {
+			const { body } = req;
+
+			const updatedCommunity: ICommunity | null =
+				await Community.findByIdAndUpdate(
+					{ _id: body.id },
+					{ $push: { users: body.user } },
+					{ returnDocument: "after" }
+				);
+			logger.info("Req received - joinCommunity");
+			res.status(200).json({
+				message: "User successfully joined community",
+				community: updatedCommunity,
+			});
+			logger.info("Response sent with status 200");
+		} catch (error) {
+			res.status(500).send({ message: "Internal Server Error" });
+			logger.error(
+				"Response sent with status 500 - Internal Server Error"
+			);
+			logger.error(error);
+		}
+	}
+
+	async leaveCommunity(req: Request, res: Response): Promise<void> {
+		try {
+			const {
+				query: { id },
+				body,
+			} = req;
+
+			const updatedCommunity: ICommunity | null =
+				await Community.findByIdAndUpdate(
+					{ _id: id },
+					{ $pull: { users: body.user } },
+					{ returnDocument: "after" }
+				);
+			logger.info("Req received - leaveCommunity");
+			res.status(200).json({
+				message: "User left the community",
+				community: updatedCommunity,
+			});
+			logger.info("Response sent with status 200");
+		} catch (error) {
+			res.status(500).send({ message: "Internal Server Error" });
+			logger.error(
+				"Response sent with status 500 - Internal Server Error"
+			);
+			logger.error(error);
+		}
+	}
 }
 
-const deleteCommunity = async (req: Request, res: Response): Promise<void> => {
-    try {
-        const deletedCommunity: ICommunity | null = await Community.findByIdAndDelete(req.query.id)
-		console.log(new Date().toLocaleString() , " - Req received - deleteCommunities");
-		res.status(200).json({
-			message: "Community deleted",
-			community: deletedCommunity,
-		});
-    } catch (error) {
-		res.status(500).send({ message: "Internal Server Error" })
-    }
-}
-
-const joinCommunity = async (req: Request, res: Response): Promise<void> => {
-    try {
-        const { body } = req
-
-        const updatedCommunity: ICommunity | null = await Community.findByIdAndUpdate(
-            { _id: body.id },
-            { $push: {users: body.user} },
-			{returnDocument: "after"}
-        )
-		console.log(new Date().toLocaleString() , " - Req received - joinCommunity");
-		res.status(200).json({
-			message: "User successfully joined community",
-			community: updatedCommunity,
-		});
-    } catch (error) {
-		res.status(500).send({ message: "Internal Server Error" })
-        console.log(error);
-    }
-}
-
-const leaveCommunity = async (req: Request, res: Response): Promise<void> => {
-    try {
-        const {
-            query: { id },
-            body
-        } = req
-
-        const updatedCommunity: ICommunity | null = await Community.findByIdAndUpdate(
-            { _id: id },
-            { $pull: { users: body.user } },
-			{ returnDocument: "after" }
-        )
-		console.log(new Date().toLocaleString() , " - Req received - leaveCommunity");
-		res.status(200).json({
-			message: "User left the community",
-			community: updatedCommunity,
-		});
-    } catch (error) {
-		res.status(500).send({ message: "Internal Server Error" })
-		console.log(error);
-    }
-}
-
-export { getCommunities, addCommunity, updateCommunity, deleteCommunity, joinCommunity, leaveCommunity }
+export default CommunityController;

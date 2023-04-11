@@ -1,48 +1,70 @@
-import express, { Express, Request, Response } from "express";
-import mongoose from "mongoose";
-import cors, { CorsOptions } from "cors";
+import express, { Express, NextFunction, Request, Response } from "express";
+import helmet from "helmet";
 import userRoutes from "./routes";
+import { logger } from "./config/logger.config";
+import { DbConnection } from "./config/db.config";
+import corsConfig from "./config/cors.config";
+import * as dotenv from "dotenv";
+dotenv.config();
 
-const domains: String[] = ['http://localhost:8080', 'http://localhost:4200'];
+class App {
+	private app: Express;
+	private dbConnection: DbConnection;
 
-var corsOptions : CorsOptions = {
-    origin: function (origin, callback) {
-        // bypass the requests with no origin (like curl requests, mobile apps, etc )
-        if (!origin) return callback(null, true);
+	constructor() {
+		this.app = express();
+		this.app.set("port", Number(process.env.PORT));
+		this.settupMiddlewares();
+		this.setupRoutes();
+		this.dbConnection = new DbConnection();
+		logger.info("App is initialized");
+		logger.info(`Port: ${this.app.get("port")}`);
+	}
 
-        if (!domains.includes(origin)) {
-            let msg : string = `This site ${origin} does not have an access. Only specified domains are allowed to access it.`;
-            return callback(new Error(msg), false);
-        }
-        return callback(null, true);
-    }
-};
+	private settupMiddlewares() {
+		this.app.use(corsConfig());
+		this.app.use(express.json());
+		this.app.use(helmet());
+		this.app.use(express.urlencoded({ extended: true }));
+		this.app.use(this.logRequest.bind(this));
+	}
 
+	private setupRoutes() {
+		this.app.use("/api", userRoutes);
+		this.app.use("/", (req: Request, res: Response) => {
+			res.status(404).json({ message: "Route not found" });
+			logger.warn(`Route not found: ${req.method} ${req.originalUrl}`);
+		});
+		this.app.use(this.errorHandler.bind(this));
+	}
 
-const PORT: string | number = process.env.PORT || 8080;
-const path = __dirname + '/views/'
+	private errorHandler(err: Error, req: Request, res: Response, next: NextFunction) {
+		logger.error(err);
+		res.status(500).json({ message: err.message });
+		next();
+	}
 
-const app: Express = express();
-app.use(cors(corsOptions));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path));
-
-app.use(userRoutes);
-
-const uri: string = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_DB}.mongodb.net/Alurakut?retryWrites=true&w=majority`;
-
-mongoose
-	.connect(uri)
-	.then(() => {
-		app.listen(PORT, () =>
-			console.log(`Server is running on port ${PORT}`)
+	private logRequest(req: Request, res: Response, next: NextFunction) {
+		logger.info(
+			`Received [${req.method}] request for [${req.originalUrl}] `
 		);
-	})
-	.catch((err) => {
-		console.log(`Connection Error: ${err}`);
-	});
+		next();
+	}
 
-app.get("/", (req: Request, res: Response) => {
-	res.sendFile(path + "index.html");
-});
+	start() {
+		this.dbConnection
+			.connect()
+			.then(() => {
+				this.app.listen(this.app.get("port"), () => {
+					logger.info(
+						`Server is running on port ${this.app.get("port")}`
+					);
+				});
+			})
+			.catch((error) => {
+				logger.error(error);
+			});
+	}
+}
+
+export default App;
