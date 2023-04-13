@@ -1,19 +1,19 @@
 <div *ngIf="data?.type === 'user'">
     <nav>
-      <a href="/"><img [src]="baseURL + '/icons/user.svg'"
+      <a href="/"><img [src]="libBaseURL + '/icons/user.svg'"
              alt="user icon" /> Perfil </a>
-      <a href="/"><img [src]="baseURL + '/icons/book.svg'"
+      <a href="/"><img [src]="libBaseURL + '/icons/book.svg'"
              alt="book icon" /> Recados </a>
-      <a href="/"><img [src]="baseURL + '/icons/camera.svg'"
+      <a href="/"><img [src]="libBaseURL + '/icons/camera.svg'"
              alt="camera icon" /> Fotos </a>
-      <a href="/"><img [src]="baseURL + '/icons/sun.svg'"
+      <a href="/"><img [src]="libBaseURL + '/icons/sun.svg'"
              alt="sun icon" /> Depoimentos </a>
     </nav>
     <hr />
     <nav>
-      <a href="/"><img [src]="baseURL + '/icons/plus.svg'"
+      <a href="/"><img [src]="libBaseURL + '/icons/plus.svg'"
              alt="GitHub Trends icon" /> GitHub Trends </a>
-      <a routerLink="/logout"><img [src]="baseURL + '/icons/logout.svg'"
+      <a routerLink="/logout"><img [src]="libBaseURL + '/icons/logout.svg'"
              alt="logout icon" /> Sair </a>
     </nav>
   </div>
@@ -21,7 +21,7 @@
        <p>({{community?.users!.length}} membros)</p>
        <hr>
        <a *ngIf="!isUserInCommunity()" (click)="joinCommunity()">
-              <img [src]="baseURL + '/icons/plus.svg'"
+              <img [src]="libBaseURL + '/icons/plus.svg'"
              alt="GitHub Trends icon" />
              Participar da comunidade
        </a>

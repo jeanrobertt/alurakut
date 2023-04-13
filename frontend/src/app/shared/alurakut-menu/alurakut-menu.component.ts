@@ -1,5 +1,5 @@
 import { UserdataService } from 'src/app/core/services/userdata.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-alurakut-menu',
@@ -7,15 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./alurakut-menu.component.css']
 })
 export class AlurakutMenuComponent implements OnInit {
-  baseURL!: string;
+  libBaseURL: string;
   isMenuOpen!: boolean;
   v!: string;
   menuItems!: { name: string, slug: string }[];
 
-  constructor(private userdataService: UserdataService) { }
+  constructor(private userdataService: UserdataService, @Inject('LIB_BASE_URL') libURL: string) {
+    this.libBaseURL = libURL;
+  }
   
   ngOnInit(): void {
-    this.baseURL = "http://alurakut.vercel.app";
     this.isMenuOpen = false;
     this.v = '1';
     this.menuItems = [

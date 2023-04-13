@@ -8,7 +8,7 @@
         class="OrkutNostalgicIconSet__number"
       >
         <img
-          [src]="'https://alurakut.vercel.app/icons/' + icon.icon + '.svg'"
+          [src]="libBaseURL + '/icons/' + icon.icon + '.svg'"
           [alt]="'icone orkut ' + icon.slug"
           class="OrkutNostalgicIconSet__iconSample"
           [attr.key]="'orkut__icon_set__' + icon.slug + '_img'"
@@ -29,7 +29,7 @@
         <img
           *ngFor="let _ of [0, 1, 2]; let index = index"
           [attr.key]="'orkut__icon_set__' + icon.slug + '_img_' + index"
-          [src]="'https://alurakut.vercel.app/icons/' + icon.icon + '.svg'"
+          [src]="libBaseURL + '/icons/' + icon.icon + '.svg'"
           [alt]="'icone orkut ' + icon.slug"
           style="margin-right: 2px"
           [ngStyle]="{ opacity: index <= 2 - 1 ? 1 : '0.5' }"

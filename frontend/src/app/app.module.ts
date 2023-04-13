@@ -7,11 +7,12 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { AppRoutingModule } from './app-routing.module';
 import { localStorageSync } from 'ngrx-store-localstorage';
-import { AppState, reducers } from 'src/app/store/reducers';
+import { reducers } from 'src/app/store/reducers';
 
 import { AppComponent } from './app.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { SharedModule } from './shared/shared.module';
+import { environment } from "env";
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({
@@ -43,7 +44,11 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     }),
     BrowserAnimationsModule,
   ],
-  providers: [AuthGuard],
+  providers: [
+    AuthGuard,
+    { provide: 'API_BASE_URL', useValue: environment.apiUrl}, 
+    { provide: 'LIB_BASE_URL', useValue: environment.libUrl}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
