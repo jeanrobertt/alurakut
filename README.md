@@ -45,6 +45,7 @@ Próximos passos:
 - Adcionar as seguintes funcionalidades:
     - A opção de pesquisar comunidades.
     - A opção de deixar mensagens dentro das comunidades.
+    - A opção de excluir mensagens.
     - A página que mostra todos os amigos/seguidores.
     - ~~Feed de notícias.~~
 
